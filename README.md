@@ -36,9 +36,6 @@ View comprehensive metrics including:
 ### 🎨 **Clean, Modern Interface**
 Minimal, professional UI inspired by shadcn design system. Easy to use with clear visual hierarchy and intuitive controls.
 
-### 👀 **Works with View-Only Access**
-Unlike many plugins, this works even if you only have **view access** to a Figma file. Perfect for developers who need to extract strings from design files they can't edit.
-
 ### ⚡ **Lightning Fast**
 Processes hundreds of text elements in milliseconds. Works efficiently even with complex, deeply nested designs.
 
@@ -106,58 +103,6 @@ Toggle between two naming conventions:
 
 ---
 
-## 💡 Usage Examples
-
-### Example 1: Login Screen
-**Frame:** Login Page  
-**Output:**
-```json
-{
-  "page_title": "Welcome Back",
-  "email_label": "Email Address",
-  "email_placeholder": "Enter your email",
-  "password_label": "Password",
-  "password_placeholder": "••••••••",
-  "login_button": "Sign In",
-  "forgot_password_link": "Forgot password?",
-  "signup_prompt": "Don't have an account?",
-  "signup_link": "Sign up"
-}
-```
-
-### Example 2: Dashboard (camelCase)
-**Frame:** User Dashboard  
-**Output:**
-```json
-{
-  "welcomeMessage": "Good morning, Alex!",
-  "todayTasks": "Today's Tasks",
-  "completedCount": "12 completed",
-  "pendingCount": "5 pending",
-  "viewAllButton": "View All",
-  "recentActivity": "Recent Activity"
-}
-```
-
-### Example 3: Using with React i18next
-```javascript
-// Import your extracted strings
-import enStrings from './locales/en.json';
-
-// Use in your i18n config
-i18n.init({
-  resources: {
-    en: { translation: enStrings }
-  }
-});
-
-// In your component
-<h1>{t('welcomeMessage')}</h1>
-<Button>{t('loginButton')}</Button>
-```
-
----
-
 ## 🔧 Key Format Conversion
 
 The plugin automatically converts text layer names into clean, code-ready keys:
@@ -171,28 +116,6 @@ The plugin automatically converts text layer names into clean, code-ready keys:
 
 ---
 
-## 🎓 Best Practices
-
-### ✅ **Name Your Text Layers**
-Give descriptive names to text layers in Figma (e.g., "Hero Title", "CTA Button", "Error Message"). These become your JSON keys.
-
-### ✅ **Organize by Frame**
-Group related strings into frames or sections. Extract each screen or component separately for better organization.
-
-### ✅ **Use Consistent Naming**
-Follow a naming convention in Figma layer names:
-- Use descriptive names: "Submit Button" instead of "Button 1"
-- Be consistent: "Primary Button" vs "Button Primary"
-- Avoid special characters when possible
-
-### ✅ **Choose One Case Style**
-Pick either snake_case or camelCase and stick with it across your project for consistency.
-
-### ✅ **Review Before Export**
-Check the extracted strings for completeness. Ensure all important text is captured.
-
----
-
 ## 🔒 Privacy & Permissions
 
 - ✅ **No data collection**: Your design data never leaves Figma
@@ -200,31 +123,6 @@ Check the extracted strings for completeness. Ensure all important text is captu
 - ✅ **Read-only access**: Plugin only reads text, never modifies your designs
 - ✅ **Works offline**: No internet connection required
 - ✅ **View access compatible**: Works even if you only have view permissions on the file
-
----
-
-## ❓ FAQ
-
-### **Q: Do I need edit access to use this plugin?**
-A: No! The plugin works with view-only access. Perfect for developers who need to extract strings from design files.
-
-### **Q: Does it work with nested frames?**
-A: Yes! The plugin recursively searches through all nested layers, groups, and components.
-
-### **Q: Can I extract from multiple frames at once?**
-A: Currently, the plugin works with one frame at a time. Select a frame, extract strings, then select the next frame.
-
-### **Q: What happens if two text layers have the same name?**
-A: The plugin will use the layer name as the key. If duplicates exist, consider renaming layers in Figma for unique keys.
-
-### **Q: Does it support FigJam?**
-A: Currently, the plugin is optimized for Figma design files. FigJam support may be added in future versions.
-
-### **Q: Can I customize the JSON output format?**
-A: The plugin outputs standard JSON with key-value pairs. You can choose between snake_case and camelCase for keys.
-
-### **Q: Is this free?**
-A: Yes! This plugin is completely free to use.
 
 ---
 
@@ -275,39 +173,6 @@ figma-i18n-extractor/
 
 ---
 
-## 🚀 Roadmap
-
-- [ ] Export to multiple formats (CSV, YAML, XML)
-- [ ] Bulk extraction from multiple frames
-- [ ] Translation status tracking
-- [ ] Integration with translation management systems
-- [ ] Custom key prefixes and suffixes
-- [ ] Exclude specific layers from extraction
-
----
-
 ## 📝 License
 
 MIT License - Feel free to use, modify, and distribute.
-
----
-
-## 💬 Support & Feedback
-
-Have questions, feedback, or feature requests?
-
-- 🐛 **Report issues**: [GitHub Issues](https://github.com/yourusername/figma-i18n-extractor/issues)
-- 💡 **Feature requests**: [GitHub Discussions](https://github.com/yourusername/figma-i18n-extractor/discussions)
-- ⭐ **Leave a review**: Share your experience in the Figma Community
-
----
-
-## 🏷️ Keywords
-
-`figma plugin` `i18n` `internationalization` `localization` `translation` `string extraction` `text export` `json export` `react i18n` `vue i18n` `angular i18n` `i18next` `design to code` `figma to code` `developer tools` `design handoff` `multi-language` `translation keys` `string extractor` `figma strings` `ui copy` `content extraction`
-
----
-
-**Made with ❤️ for the Figma community**
-
-*If this plugin helps your workflow, please consider leaving a review or starring the project!*
