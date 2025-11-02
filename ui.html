@@ -1,0 +1,580 @@
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: hsl(0 0% 98%);
+    color: hsl(222.2 84% 4.9%);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid hsl(214.3 31.8% 91.4%);
+  }
+
+  h2 {
+    margin: 0 0 4px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: hsl(222.2 84% 4.9%);
+    letter-spacing: -0.025em;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: hsl(215.4 16.3% 46.9%);
+    margin: 0;
+    font-weight: 400;
+  }
+  
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .stat-card {
+    background: white;
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .stat-card:hover {
+    border-color: hsl(215.3 19.3% 84.5%);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: hsl(215.4 16.3% 46.9%);
+    font-weight: 500;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .stat-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: hsl(222.2 84% 4.9%);
+    font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+  }
+
+  .frame-info {
+    background: white;
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .frame-icon {
+    width: 32px;
+    height: 32px;
+    background: hsl(221.2 83.2% 53.3% / 0.1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .frame-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: hsl(222.2 84% 4.9%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .case-toggle {
+    background: white;
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .toggle-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: hsl(222.2 84% 4.9%);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .toggle-buttons {
+    display: inline-flex;
+    background: hsl(210 40% 96.1%);
+    border-radius: 6px;
+    padding: 3px;
+    width: 100%;
+  }
+
+  .toggle-btn {
+    flex: 1;
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: hsl(215.4 16.3% 46.9%);
+    font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+  }
+
+  .toggle-btn:hover:not(.active) {
+    color: hsl(222.2 84% 4.9%);
+  }
+
+  .toggle-btn.active {
+    background: white;
+    color: hsl(222.2 84% 4.9%);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+  
+  .message {
+    background: white;
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    padding: 32px 24px;
+    font-size: 13px;
+    color: hsl(215.4 16.3% 46.9%);
+    text-align: center;
+  }
+  
+  .json-container {
+    background: hsl(222.2 84% 4.9%);
+    border: 1px solid hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    max-height: 320px;
+    overflow: auto;
+    position: relative;
+    font-size: 12px;
+  }
+
+  .json-header {
+    position: sticky;
+    top: -16px;
+    background: hsl(222.2 84% 4.9%);
+    margin: -16px -16px 12px -16px;
+    padding: 10px 16px;
+    border-bottom: 1px solid hsl(215 20.2% 15.1%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .json-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: hsl(215.4 16.3% 56.9%);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .json-size {
+    font-size: 10px;
+    color: hsl(215.4 16.3% 46.9%);
+    font-family: 'SF Mono', 'Monaco', monospace;
+  }
+  
+  pre {
+    margin: 0;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: hsl(210 40% 98%);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* JSON Syntax Highlighting - shadcn inspired */
+  .json-key { color: hsl(210 40% 80%); }
+  .json-string { color: hsl(142 76% 60%); }
+  .json-number { color: hsl(217 92% 76%); }
+  .json-bracket { color: hsl(210 40% 90%); }
+  
+  .button-container {
+    display: flex;
+    gap: 8px;
+  }
+  
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+    padding: 0 16px;
+    height: 36px;
+    font-family: inherit;
+  }
+  
+  .copy-btn {
+    flex: 2;
+    background: hsl(222.2 84% 4.9%);
+    color: white;
+    border-color: hsl(222.2 84% 4.9%);
+  }
+  
+  .copy-btn:hover {
+    background: hsl(222.2 84% 8%);
+  }
+
+  .copy-btn:active {
+    transform: scale(0.98);
+  }
+  
+  .copy-btn.copied {
+    background: hsl(142.1 76.2% 36.3%);
+    border-color: hsl(142.1 76.2% 36.3%);
+  }
+
+  .copy-btn:disabled {
+    opacity: 0.9;
+    cursor: not-allowed;
+  }
+  
+  .close-btn {
+    flex: 1;
+    background: white;
+    color: hsl(222.2 84% 4.9%);
+    border-color: hsl(214.3 31.8% 91.4%);
+  }
+  
+  .close-btn:hover {
+    background: hsl(210 40% 96.1%);
+    border-color: hsl(214.3 31.8% 85%);
+  }
+  
+  .empty-state {
+    background: white;
+    border: 2px dashed hsl(214.3 31.8% 91.4%);
+    border-radius: 8px;
+    text-align: center;
+    padding: 48px 24px;
+  }
+
+  .empty-icon {
+    width: 48px;
+    height: 48px;
+    background: hsl(210 40% 96.1%);
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .empty-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: hsl(222.2 84% 4.9%);
+    margin: 0 0 4px 0;
+  }
+
+  .empty-text {
+    color: hsl(215.4 16.3% 46.9%);
+    font-size: 13px;
+    margin: 0;
+  }
+
+  /* Custom Scrollbar - minimal */
+  .json-container::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .json-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .json-container::-webkit-scrollbar-thumb {
+    background: hsl(215 20.2% 25.1%);
+    border-radius: 5px;
+    border: 2px solid hsl(222.2 84% 4.9%);
+  }
+
+  .json-container::-webkit-scrollbar-thumb:hover {
+    background: hsl(215 20.2% 30%);
+  }
+
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from { 
+      opacity: 0; 
+      transform: translateY(4px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+  }
+
+  .stat-card,
+  .frame-info,
+  .case-toggle,
+  .json-container,
+  .button-container {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  /* Focus states for accessibility */
+  button:focus-visible {
+    outline: 2px solid hsl(221.2 83.2% 53.3%);
+    outline-offset: 2px;
+  }
+
+  .toggle-btn:focus-visible {
+    outline: 2px solid hsl(221.2 83.2% 53.3%);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+</style>
+
+<div class="container">
+  <div class="header">
+    <h2>Figma i18n Extractor</h2>
+    <p class="subtitle">Extract and export all text content from Figma frames in seconds</p>
+  </div>
+  
+  <div id="content">
+    <div class="empty-state">
+      <div class="empty-icon">📦</div>
+      <p class="empty-title">No frame selected</p>
+      <p class="empty-text">Select a frame in your canvas to extract text strings</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentJSON = null;
+  let currentCaseType = 'snake';
+
+  function syntaxHighlight(json) {
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+      let cls = 'json-number';
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) {
+          cls = 'json-key';
+        } else {
+          cls = 'json-string';
+        }
+      } else if (/true|false/.test(match)) {
+        cls = 'json-boolean';
+      } else if (/null/.test(match)) {
+        cls = 'json-null';
+      }
+      return '<span class="' + cls + '">' + match + '</span>';
+    });
+  }
+
+  function formatBytes(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+  }
+
+  function displayMessage(message) {
+    const content = document.getElementById('content');
+    content.innerHTML = `<div class="message">${message}</div>`;
+  }
+
+  function displayStrings(data, frameName, textCount) {
+    currentJSON = data;
+    const jsonString = JSON.stringify(data, null, 2);
+    const jsonSize = new Blob([jsonString]).size;
+    const content = document.getElementById('content');
+    
+    const isEmpty = Object.keys(data).length === 0;
+    
+    if (isEmpty) {
+      content.innerHTML = `
+        <div class="frame-info">
+          <div class="frame-icon">📁</div>
+          <div class="frame-name">${frameName}</div>
+        </div>
+        <div class="message">No text elements found in this frame</div>
+      `;
+    } else {
+      const highlightedJSON = syntaxHighlight(jsonString);
+      
+      content.innerHTML = `
+        <div class="frame-info">
+          <div class="frame-icon">📁</div>
+          <div class="frame-name">${frameName}</div>
+        </div>
+        
+        <div class="stats-bar">
+          <div class="stat-card">
+            <div class="stat-label">Strings</div>
+            <div class="stat-value">${textCount}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Keys</div>
+            <div class="stat-value">${Object.keys(data).length}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Size</div>
+            <div class="stat-value">${formatBytes(jsonSize)}</div>
+          </div>
+        </div>
+
+        <div class="case-toggle">
+          <label class="toggle-label">Key format</label>
+          <div class="toggle-buttons">
+            <button class="toggle-btn ${currentCaseType === 'snake' ? 'active' : ''}" data-case="snake">
+              snake_case
+            </button>
+            <button class="toggle-btn ${currentCaseType === 'camel' ? 'active' : ''}" data-case="camel">
+              camelCase
+            </button>
+          </div>
+        </div>
+        
+        <div class="json-container">
+          <div class="json-header">
+            <span class="json-label">Output</span>
+            <span class="json-size">${Object.keys(data).length} items</span>
+          </div>
+          <pre id="json-output">${highlightedJSON}</pre>
+        </div>
+        
+        <div class="button-container">
+          <button id="copy-btn" class="copy-btn">Copy to clipboard</button>
+          <button id="close-btn" class="close-btn">Close</button>
+        </div>
+      `;
+      
+      // Add toggle button listeners
+      document.querySelectorAll('.toggle-btn').forEach(btn => {
+        btn.onclick = () => {
+          const newCaseType = btn.getAttribute('data-case');
+          if (newCaseType !== currentCaseType) {
+            currentCaseType = newCaseType;
+            parent.postMessage({ 
+              pluginMessage: { 
+                type: 'case-type-changed',
+                caseType: newCaseType
+              } 
+            }, '*');
+          }
+        };
+      });
+      
+      document.getElementById('copy-btn').onclick = () => {
+        const btn = document.getElementById('copy-btn');
+        const jsonString = JSON.stringify(currentJSON, null, 2);
+        
+        // Fallback copy method for better compatibility
+        const copyToClipboard = (text) => {
+          // Try modern clipboard API first
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            return navigator.clipboard.writeText(text);
+          }
+          
+          // Fallback to older method
+          return new Promise((resolve, reject) => {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+              const successful = document.execCommand('copy');
+              document.body.removeChild(textArea);
+              if (successful) {
+                resolve();
+              } else {
+                reject(new Error('Copy command failed'));
+              }
+            } catch (err) {
+              document.body.removeChild(textArea);
+              reject(err);
+            }
+          });
+        };
+        
+        copyToClipboard(jsonString)
+          .then(() => {
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Copied to clipboard';
+            btn.classList.add('copied');
+            btn.disabled = true;
+            
+            setTimeout(() => {
+              btn.textContent = originalText;
+              btn.classList.remove('copied');
+              btn.disabled = false;
+            }, 2000);
+          })
+          .catch(err => {
+            console.error('Failed to copy:', err);
+            btn.textContent = '✗ Copy failed';
+            setTimeout(() => {
+              btn.textContent = 'Copy to clipboard';
+            }, 2000);
+          });
+      };
+      
+      document.getElementById('close-btn').onclick = () => {
+        parent.postMessage({ pluginMessage: { type: 'close-plugin' } }, '*');
+      };
+    }
+  }
+
+  // Listen for messages from the plugin
+  window.onmessage = (event) => {
+    const msg = event.data.pluginMessage;
+    
+    if (msg.type === 'strings-extracted') {
+      displayStrings(msg.data, msg.frameName, msg.textCount);
+    } else if (msg.type === 'no-selection') {
+      displayMessage(msg.message);
+    } else if (msg.type === 'multiple-selection') {
+      displayMessage(msg.message);
+    } else if (msg.type === 'invalid-selection') {
+      displayMessage(msg.message);
+    }
+  };
+</script>
