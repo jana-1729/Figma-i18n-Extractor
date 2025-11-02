@@ -41,39 +41,6 @@ Processes hundreds of text elements in milliseconds. Works efficiently even with
 
 ---
 
-## 🎯 Who Can Use This Plugin?
-
-### ✅ **Developers**
-- Extract UI strings for React, Vue, Angular, or any web framework
-- Generate i18n translation files for your codebase
-- Quickly audit text content in designs
-- Create translation keys for localization libraries (react-intl, i18next, vue-i18n, etc.)
-
-### ✅ **Designers**
-- Document all text content in designs
-- Share copywriting with content teams
-- Create text inventories for design systems
-- Export strings for localization review
-
-### ✅ **Product Managers**
-- Audit product copy across multiple screens
-- Generate content inventories for documentation
-- Share text with marketing teams
-- Track UI copy changes
-
-### ✅ **Localization Teams**
-- Extract source strings for translation
-- Generate translation key templates
-- Audit text content across designs
-- Prepare files for translation management systems
-
-### ✅ **Content Writers**
-- Review all UI copy in one place
-- Export text for spell-checking and editing
-- Create style guide documentation
-
----
-
 ## 📖 How to Use
 
 ### Step 1: Install the Plugin
@@ -100,29 +67,6 @@ Toggle between two naming conventions:
 - Select a different frame in Figma
 - The plugin automatically updates with new strings
 - No need to close and reopen—it's always in sync
-
----
-
-## 🔧 Key Format Conversion
-
-The plugin automatically converts text layer names into clean, code-ready keys:
-
-| Layer Name | snake_case | camelCase |
-|------------|------------|-----------|
-| Welcome Message | `welcome_message` | `welcomeMessage` |
-| Sign Up Button! | `sign_up_button` | `signUpButton` |
-| User-Profile/Title | `user_profile_title` | `userProfileTitle` |
-| Footer © 2024 | `footer_2024` | `footer2024` |
-
----
-
-## 🔒 Privacy & Permissions
-
-- ✅ **No data collection**: Your design data never leaves Figma
-- ✅ **No network access**: Plugin runs entirely locally
-- ✅ **Read-only access**: Plugin only reads text, never modifies your designs
-- ✅ **Works offline**: No internet connection required
-- ✅ **View access compatible**: Works even if you only have view permissions on the file
 
 ---
 
